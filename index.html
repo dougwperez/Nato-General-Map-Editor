@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+
+    <!-- Babylon.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+    <script src="https://preview.babylonjs.com/ammo.js"></script>
+    <script src="https://preview.babylonjs.com/cannon.js"></script>
+    <script src="https://preview.babylonjs.com/Oimo.js"></script>
+    <script src="https://preview.babylonjs.com/earcut.min.js"></script>
+    <script src="https://preview.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+    <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+    <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+    <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+    <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+    <script src="babylon.js"></script>
+    <script src="babylon.glTFFileLoader.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+  </head>
+  <body>
+    <canvas id="renderCanvas"></canvas>
+    <div class="mainMenu">
+      <div class="btn" >
+        <div class="in_btn" onclick="document.location='https://nato-general-menu.netlify.app/'">Exit</div>
+      </div>
+      <div class="btn" >
+        <div class="in_btn">Publish</div>
+      </div>
+      <div class="btn" >
+        <div class="in_btn">Help</div>
+      </div>
+    </div>
+    </div>
+    <div class="menuButtons" id="builderMenuButtons">
+      <button class="menuBtn" id="objectives"><img src="./Icons/ObjectivesMenu.png">OBJECTIVES</button>
+      <button class="menuBtn" id="terrain"><img src="./Icons/terrainIcon.png">TERRAIN</button>
+      <button class="menuBtn" id="civilian"><img src="./Icons/civilianIcon.png">CIVILIAN</button>
+      <button class="menuBtn" id="nato"><img src="./Icons/NatoIcon.png"> NATO</button>
+      <button class="menuBtn" id="ussr"><img src="./Icons/sovietIcon.png"> USSR</button>
+      <button class="menuBtn" id="options"><img src="./Icons/OptionsIcon.png"> OPTIONS</button>
+      <button class="menuBtn" id="hideShowBuilder">⬇HIDE MENU</button>
+    </div>
+    <div class="controller" id="controllerMenuButtons">
+      <button class="controllerButton" id="navigateController">🖐️ Navigate</button>
+      <button class="controllerButton" id="rotateController">🔄 Rotate Tile</button>
+      <button class="controllerButton" id="deleteController">❌ Delete Tile</button>
+      <button class="controllerButton" id="reset">🗺️ Reset Map</button>
+    </div>
+    <div class="stickyFooter" id="builderMenu">
+
+
+      <div id="objectiveItems">
+        <button id="cityButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/objectiveIcons/cityIcon.jpg"><br/>City</button>
+        <button id="radarButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/objectiveIcons/radarIcon.jpg"><br/>Radar Station</button>
+        <button id="supplyRouteButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/objectiveIcons/supplyStationIcon.jpg"><br/>Supply Route</button>
+        <button id="oilRefineryButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/objectiveIcons/refineryIcon.jpg"><br/>Oil Refinery</button>
+        <button id="militaryBaseButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/objectiveIcons/militaryBaseIcon1.jpg"><br/>Military Base</button>
+      </div>
+      <div id="terrainItems">
+        <button id="desertButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/terrainIcons/desert.jpg"><br/>Desert</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/terrainIcons/pineforest.png"><br/> Forest</button>
+        <button id="grassLandButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/terrainIcons/grassland.webp"><br/>Grassland</button>
+        <button id="dryGrassButton" class="itemButtons"><img class="itemIcons" src="./textures/dryGrass.jpg"><br/> Dry Grass</button>
+        <button id="underGrowthButton" class="itemButtons"><img class="itemIcons" src="./textures/underGrowthGreenGrass.jpg"><br/> UnderGrowth</button>
+        <button id="dryGreenGrassButton" class="itemButtons"><img class="itemIcons" src="./textures/dryGreenGrass.jpg"><br/> Plain</button>
+        <button id="mountainButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/terrainIcons/mountain1.jpg"><br/>Mountains</button>
+        <button id="snowButton" class="itemButtons"><img class="itemIcons" src="./textures/snow.jpg"><br/> Snow</button>
+        <button id="lightSnowButton" class="itemButtons"><img class="itemIcons" src="./textures/lightSnow.jpg"><br/> Light snow</button>
+        <button id="waterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/terrainIcons/water.jpg"><br/>Water</button>
+        <button id="streamButton" class="itemButtons"><img class="itemIcons" src="./textures/stream.jpg"><br/> Stream</button>
+        <button id="riverButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/terrainIcons/riverIcon.jpg"><br/> River</button>
+        <button id="rapidsButton" class="itemButtons"><img class="itemIcons" src="./textures/rapids.jpg"><br/> Rapids</button>
+
+
+
+        <button id="plateauButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/terrainIcons/plateau.jpg"><br/> Plateau</button>
+
+        <button id="pebblesButton" class="itemButtons"><img class="itemIcons" src="./textures/pebbles.jpg"><br/> Pebbles</button>
+
+        <button id="rockyButton" class="itemButtons"><img class="itemIcons" src="./textures/rocky.jpg"><br/> Rocks</button>
+        <button id="wetMudButton" class="itemButtons"><img class="itemIcons" src="./textures/wetMud.jpg"><br/> Wet Mud</button>
+        <button id="mudGrassButton" class="itemButtons"><img class="itemIcons" src="./textures/mudGrassMix.jpg"><br/> Mud Grass</button>
+
+        <button id="mudButton" class="itemButtons"><img class="itemIcons" src="./textures/mud.jpg"><br/> Mud</button>
+
+      </div>
+      <div id="civilianItems">
+        <button id="roadButton" id="civId" class="itemButtons"><img class="itemIcons" src="./textures/road.jpeg"><br/>Highway</button>
+        <button id="freewayButton" class="itemButtons"><img class="itemIcons" src="./textures/freeway.jpg"><br/>Freeway</button>
+        <button id="streetButton" id="civId" class="itemButtons"><img class="itemIcons" src="./textures/road2.jpeg"><br/>Street</button>
+        <button id="destroyedRoadButton" id="civId" class="itemButtons"><img class="itemIcons" src="./textures/destroyedRoad.jpeg"><br/>
+          Pathway
+        </button>
+        <button id="dirtRoadButton" class="itemButtons"><img class="itemIcons" src="./textures/dirtyRoad.jpg"><br/> Dirty Road</button>
+        <button id="suburbanRoadButton" class="itemButtons"><img class="itemIcons" src="./textures/suburbanRoad.jpg"><br/> Country Road</button>
+        <button id="damagedRoadButton" class="itemButtons"><img class="itemIcons" src="./textures/damagedRoad.jpg"><br/> Damaged Road</button>
+        <button id="cityRoadButton" class="itemButtons"><img class="itemIcons" src="./textures/cityRoad.jpg"><br/> City Road</button>
+        <button id="intersectionButton" class="itemButtons"><img class="itemIcons" src="./textures/intersection.jpg"><br/> Intersection</button>
+        <button id="rubbleButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/civilianIcons/rubble1.jpg"><br/>Rubble</button>
+        <button id="concreteButton" class="itemButtons"><img class="itemIcons" src="./textures/concrete.jpg"><br/> Concrete</button>
+        <button id="concreteTilesButton" class="itemButtons"><img class="itemIcons" src="./textures/concreteTiles.jpg"><br/> Concrete Tiles</button>
+        <button id="concreteBricksButton" class="itemButtons"><img class="itemIcons" src="./textures/concreteBricks.jpg"><br/> Concrete Bricks</button>
+        <button id="rustButton" class="itemButtons"><img class="itemIcons" src="./textures/rust.jpg"><br/> Rust</button>
+
+        <button id="hedgeRowsButton" class="itemButtons"><img class="itemIcons" src="./textures/hedgeRows.jpg"><br/> Hedge Rows</button>
+        <button id="farmButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/civilianIcons/farmland.jpg"><br/>Farmland</button>
+
+      </div>
+      <div id="natoItems">
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/infantry.jpg"><br/>Infantry</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/antiTankInfantry.jpg"><br/>Anti-Tank Infantry</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/deltaForce.jpg"><br/>Delta Force</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/medicVehicle.jpg"><br/>Medic</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/engineer.jpg"><br/>Engineer</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/bradley1.jpg"><br/>M1 Bradley</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/abrams.jpg"><br/>M1 Abrams</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/howitzer.jpg"><br/>Howitzer</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/mlrs.jpg"><br/>M270 MLRS</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/patriot.jpg"><br/>Patriot Missiles</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/littleBird.jpg"><br/>Little Bird</button>
+
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/apache.jpg"><br/>Apache</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/chinook.jpg"><br/>Chinook</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/f15.jpg"><br/>F15</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/warthog.jpg"><br/>A-10 Warthog</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/gunship1.jpg"><br/>AC130 Gunship</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/b52.jpg"><br/>B52 Bomber</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/natoIcons/fortification.jpg"><br/> Fortification</button>
+      </div>
+      <div id="ussrItems">
+
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/sovietInfantry1.jpg"><br/> Infantry</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/sovietAntiTankInfantry.jpg"><br/> Anti-Tank Infantry</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/spetsnaz.jpg"><br/> Spetsnaz</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/medicVehicle.jpg"><br/> Medic</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/engineer.jpg"><br/> Engineer</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/bmp.jpg"><br/> BMP 2</button>
+        <button id="helicopterButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/t72.jpg"><br/>T-72 Tank</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/spGun.jpg"><br/> 152MM SP Gun</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/rockets.jpg"><br/> BM27 Rockets</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/shilka.jpg"><br/> ZSU-23-4 Shilka</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/osaAA.jpg"><br/> 9K33 Osa AA</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/mi242.jpg"><br/> Mil Mi-24</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/transportHelicopter.jpg"><br/> Mil Mi-17 Transport</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/mig29.jpg"><br/> Mig 29</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/su25.jpg"><br/> Su-25 Ground Attack</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/tu160Bomber.jpg"><br/> Tu-160 Bomber</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/transport.jpg"><br/> Il-76 Transport</button>
+        <button id="boomBoxButton" class="itemButtons"><img class="itemIcons" src="./itemIcons/ussrIcons/fortification.jpg"><br/> Fortification</button>
+      </div>
+    </div>
+    <script type="text/javascript" src="scripts.js">
+
+    </script>
+  </body>
+</html>
